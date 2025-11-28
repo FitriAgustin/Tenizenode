@@ -22,7 +22,7 @@ $_POST['tanggaltransaksi'] : date("Y-m-d H:i:s");
     require_once('connect.php'); 
  
     // Cek apakah idproduk ada di tabel produk 
-    $checkStmt = $con->prepare("SELECT idproduk FROM produk WHERE idproduk = ?"); 
+    $checkStmt = $conn->prepare("SELECT idproduk FROM produk WHERE idproduk = ?"); 
     $checkStmt->bind_param("s", $idproduk); 
     $checkStmt->execute();
      $result = $checkStmt->get_result(); 
@@ -33,10 +33,10 @@ $_POST['tanggaltransaksi'] : date("Y-m-d H:i:s");
     $checkStmt->close(); 
  
     // Insert transaksi ke database 
-    $stmt = $con->prepare("INSERT INTO transaksi (idproduk, jumlahbeli, total, 
+    $stmt = $conn->prepare("INSERT INTO transaksi (idproduk, jumlahbeli, total, 
 bayar, kembalian, tanggaltransaksi) VALUES (?, ?, ?, ?, ?, ?)"); 
     if (!$stmt) { 
-        echo "Gagal mempersiapkan statement: " . $con->error; 
+        echo "Gagal mempersiapkan statement: " . $conn->error; 
         exit; 
     } 
     $stmt->bind_param("ssssss", $idproduk, $jumlahbeli, $total, $bayar, 
@@ -49,6 +49,6 @@ $kembalian, $tanggaltransaksi);
     } 
  
     $stmt->close(); 
-    mysqli_close($con); 
+    mysqli_close($conn); 
 } 
 ?>

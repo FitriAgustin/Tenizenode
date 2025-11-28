@@ -9,11 +9,10 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     $tanggallahir = $_POST["tanggallahir"];
     $foto_base64 = $_POST["foto"];
 
-    //dekode foto siswa
     $imageData = base64_decode($foto_base64);
-    //buat file untuk gambar sesuai nis
+
     $namafile = $nis . "_siswa.jpg";
-    //menentukan lokasi path file
+
     $filepath = "upload/" . $namafile;
 
     if (file_put_contents($filepath, $imageData) && isset($foto_base64)) {
